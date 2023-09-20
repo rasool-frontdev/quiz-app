@@ -9,6 +9,7 @@ import Question from "./components/Question";
 const initialState = {
   questions: [],
   status: "loading",
+  index: 0,
 };
 
 function reducer(state, action) {
@@ -58,7 +59,9 @@ function App() {
         {state.status === "ready" && (
           <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
         )}
-        {state.status === "active" && <Question />}
+        {state.status === "active" && (
+          <Question question={state.questions[state.index]} />
+        )}
       </Main>
     </div>
   );
