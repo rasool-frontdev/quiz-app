@@ -4,6 +4,7 @@ import { useEffect, useReducer } from "react";
 import Loader from "./components/Loader";
 import Error from "./components/Error";
 import StartScreen from "./components/StartScreen";
+import Question from "./components/Question";
 
 const initialState = {
   questions: [],
@@ -22,6 +23,11 @@ function reducer(state, action) {
       return {
         ...state,
         status: "error",
+      };
+    case "start":
+      return {
+        ...state,
+        status: "active",
       };
 
     default:
@@ -42,6 +48,7 @@ function App() {
     //   cleanup;
     // };
   }, []);
+
   return (
     <div className="app">
       <Header />
@@ -49,8 +56,9 @@ function App() {
         {state.status === "loading" && <Loader />}
         {state.status === "error" && <Error />}
         {state.status === "ready" && (
-          <StartScreen numQuestions={numQuestions} />
+          <StartScreen numQuestions={numQuestions} dispatch={dispatch} />
         )}
+        {state.status === "active" && <Question />}
       </Main>
     </div>
   );
